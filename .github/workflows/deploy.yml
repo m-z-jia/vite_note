@@ -1,0 +1,33 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]  # 推送到 main 分支时触发
+  workflow_dispatch:   # 允许手动触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20  # 用新版 Node
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build VuePress site
+        run: npm run build  # 对应 package.json 的 scripts
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/.vuepress/dist  # 构建产物目录
+          publish_branch: gh-pages          # 部署到这个分支
