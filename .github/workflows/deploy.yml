@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # 推送到 main 分支时触发
+    branches: [ master ]  # 推送到 main 分支时触发
   workflow_dispatch:   # 允许手动触发
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20  # 用新版 Node
+          node-version: 22  # 用新版 Node
 
       - name: Install dependencies
         run: npm install
