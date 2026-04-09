@@ -37,8 +37,11 @@ jobs:
       - name: Build VuePress site
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4 # GitHub 官方部署 Action，彻底解决权限问题
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          artifact_name: github-pages
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          path: './docs/.vuepress/dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
