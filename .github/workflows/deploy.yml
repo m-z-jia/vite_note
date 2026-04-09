@@ -2,7 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [master] # 与你的本地分支一致
+    branches: [master]
+    paths: ['docs/**']
+
   workflow_dispatch:
 
 # 关键：给 workflow 授予 Pages 部署权限
