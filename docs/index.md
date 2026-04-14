@@ -1,21 +1,22 @@
-# 我的个人笔记站
-
-> 学习、记录、成长
-
-## 欢迎来到我的笔记站
-
-这里记录了我的学习心得、技术笔记和日常随笔。
-
-### 主要内容
-
-- **前端学习**：HTML、CSS、JS、Vue、React 知识点整理
-- **工具使用**：Git、VS Code、Linux 常用技巧
-- **日常随笔**：学习心得、问题总结
-
-### 开始阅读
-
-[开始阅读 →](notes/first)
-
 ---
+layout: home
 
-由 VitePress 驱动 | 我的笔记站
+hero:
+  name: "我的个人笔记站"
+  text: "学习、记录、成长"
+  image:
+    src: /img/logo.png
+    alt: logo
+  actions:
+    - theme: brand
+      text: 开始阅读 →
+      link: /notes/first
+
+features:
+  - title: 前端学习
+    details: HTML、CSS、JS、Vue、React 知识点整理
+  - title: 工具使用
+    details: Git、VS Code、Linux 常用技巧
+  - title: 日常随笔
+    details: 学习心得、问题总结
+---

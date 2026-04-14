@@ -6,6 +6,10 @@ export default {
   themeConfig: {
     logo: "/img/logo.png",
     nav: [{ text: "首页", link: "/" }],
+    footer: {
+      message: "由 VitePress 驱动",
+      copyright: "我的笔记站",
+    },
     search: {
       provider: "local",
     },

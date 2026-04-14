@@ -6,6 +6,8 @@ dist/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
 
-# 系统文件
+# 缓存文件
+.npm_cache/
+docs/.npm_cache/
 .DS_Store
 *.log

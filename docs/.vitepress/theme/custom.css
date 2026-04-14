@@ -1,0 +1,51 @@
+:root {
+  --vp-home-hero-image-filter: blur(0);
+}
+
+.VPHero.has-image .container {
+  text-align: center;
+}
+
+.VPHero.has-image .image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.VPHero .image-src {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 200px;
+}
+
+.VPHero .name {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.VPHero .text {
+  font-size: 1.5rem;
+  color: var(--vp-c-text-2);
+  margin-bottom: 30px;
+}
+
+.VPFeatures {
+  margin-top: 40px;
+}
+
+.VPFeature {
+  background-color: transparent !important;
+  border: none !important;
+  text-align: center;
+}
+
+.VPFeature .title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.VPFeature .details {
+  font-size: 0.9rem;
+  color: var(--vp-c-text-2);
+}
