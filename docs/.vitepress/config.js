@@ -1,5 +1,5 @@
 export default {
-  base: process.env.GITHUB_ACTIONS ? "/mzj-note/" : "/",
+  base: process.env.GITHUB_ACTIONS ? "/vite_note/" : "/",
   title: "蘑菇",
   description: "我的个人博客",
   head: [["link", { rel: "icon", href: "/img/mushroom.png" }]],

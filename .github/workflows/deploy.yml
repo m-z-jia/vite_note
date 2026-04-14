@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [master]
-    paths: ['docs/**']
+    paths: ["docs/**"]
 
   workflow_dispatch:
 
@@ -34,13 +34,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build VuePress site
+      - name: Build VitePress site
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs/.vitepress/dist'
+          path: "./docs/.vitepress/dist"
 
       - name: Deploy to GitHub Pages
         id: deployment
