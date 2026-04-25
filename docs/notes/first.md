@@ -110,3 +110,80 @@ module.exports = {
   },
 };
 ```
+
+## 七、部署到 GitHub Pages
+
+### 1. 准备工作
+
+确保你的 GitHub 仓库已经创建，并且你已经将代码推送到 GitHub 上。
+
+### 2. 配置 Base 路径
+
+在 `docs/.vuepress/config.js` 中，确保 `base` 配置正确。如果你的仓库名是 `my-notes`，则：
+
+```javascript
+base: "/my-notes/",
+```
+
+### 3. 创建 GitHub Actions 配置文件
+
+在项目根目录下创建 `.github/workflows/deploy.yml` 文件：
+
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master] # 或者是 main
+    paths: ["docs/**"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build VuePress site
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./docs/.vuepress/dist"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+### 4. GitHub 仓库设置
+
+1. 进入 GitHub 仓库设置页面 (**Settings**)。
+2. 在左侧菜单点击 **Pages**。
+3. 在 **Build and deployment** > **Source** 下拉菜单中选择 **GitHub Actions**。
+
+### 5. 推送代码
+
+完成上述配置后，每次向 `master` 分支推送代码，GitHub Actions 都会自动构建并部署你的网站。
