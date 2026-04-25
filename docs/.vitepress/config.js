@@ -3,7 +3,7 @@ import mathjax3 from "markdown-it-mathjax3";
 export default {
   base: process.env.GITHUB_ACTIONS ? "/vite_note/" : "/",
   title: "蘑菇",
-  description: "我的个人博客",
+  description: "记录学习与成长的点点滴滴",
   head: [["link", { rel: "icon", href: "/img/mushroom.png" }]],
   markdown: {
     config: (md) => {
@@ -14,7 +14,8 @@ export default {
     logo: "/img/logo.png",
     nav: [{ text: "首页", link: "/" }],
     footer: {
-      message: "由 VitePress 驱动",
+      message:
+        "恭喜你成为尊贵的蘑菇访客！愿知识的星辉照亮你的学习与成长之路——一记天时，二录地利，三写人和。星光不问赶路人，时光不负有心人。愿您出走半生，归来仍是少年。记录只是开始，思考没有终点。知识星辉为你领航，往后风雨同路，落笔顺遂。从今天起，笔记星徽将陪伴你驶向每一段璀璨旅程。",
       copyright: "我的笔记站",
     },
     docFooter: {
