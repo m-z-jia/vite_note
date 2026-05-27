@@ -12,10 +12,19 @@ export default {
   },
   themeConfig: {
     logo: "/img/logo.png",
-    nav: [{ text: "首页", link: "/" }],
+    nav: [
+      { text: "首页", link: "/" },
+      {
+        text: "笔记分类",
+        items: [
+          { text: "机器学习", link: "/notes/guide/机器学习/L1-L2正则化" },
+          { text: "前端相关", link: "/notes/guide/前端相关/组件调用" },
+          { text: "随心记", link: "/notes/guide/随心记/first" },
+        ],
+      },
+    ],
     footer: {
-      message:
-        "恭喜你成为尊贵的星辉-奔驰车主！愿知识的星辉照亮你的学习与成长之路—— 一记天时，二录地利，三写人和。星光不问赶路人，时光不负有心人。愿您出走半生，归来仍是少年。记录只是开始，思考没有终点。知识星辉为你领航，往后风雨同路，落笔顺遂。从今天起，笔记星徽将陪伴你驶向每一段璀璨旅程。",
+      message: "知识的星辉照亮成长之路 — 记录只是开始，思考没有终点。",
       copyright: "mzj",
     },
     docFooter: {
@@ -41,7 +50,11 @@ export default {
           {
             text: "梯度下降算法梳理",
             link: "/notes/guide/机器学习/一些梯度下降算法",
-          }
+          },
+          {
+            text: "特征工程",
+            link: "/notes/guide/机器学习/特征工程",
+          },
         ],
       },
       {
@@ -68,7 +81,7 @@ export default {
           },
           {
             text: "VuePress 笔记网站搭建指南",
-            link: "/notes/first",
+            link: "/notes/guide/随心记/first",
           },
         ],
       },

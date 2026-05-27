@@ -5,7 +5,7 @@
   --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 }
 
-/* 全局样式优化 */
+/* 全局 */
 * {
   box-sizing: border-box;
 }
@@ -14,7 +14,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* 导航栏始终固定在顶部 */
+/* 导航栏固定在顶部 */
 .VPNav {
   position: fixed !important;
   top: 0 !important;
@@ -27,7 +27,12 @@ html {
   transition: all 0.3s ease !important;
 }
 
-/* 为固定导航栏留出空间（首页除外） */
+/* 导航栏搜索按钮高亮 */
+.VPNavBarSearch button:hover {
+  border-color: var(--vp-c-brand) !important;
+}
+
+/* 固定导航栏留白 */
 body:not(:has(.VPSidebar.hidden-on-home)) .VPContent {
   padding-top: 60px !important;
 }
@@ -36,7 +41,7 @@ body:not(:has(.VPSidebar.hidden-on-home)) .VPMain {
   padding-top: 60px !important;
 }
 
-/* 首页的VitePress默认容器全部清掉 - 彻底清除所有边距和padding */
+/* 首页全宽覆盖 */
 .VPSidebar.hidden-on-home ~ .VPContent,
 .VPSidebar.hidden-on-home ~ .VPContent .VPDoc,
 .VPSidebar.hidden-on-home ~ .VPContent .VPDoc .vp-doc,
@@ -46,7 +51,6 @@ body:not(:has(.VPSidebar.hidden-on-home)) .VPMain {
   margin: 0 !important;
 }
 
-/* 自定义页面布局 - 其他页面 */
 .vp-doc {
   padding: 0 !important;
 }
@@ -68,7 +72,6 @@ body:not(:has(.VPSidebar.hidden-on-home)) .VPMain {
   display: none !important;
 }
 
-/* 首页主内容区域调整 - 移除侧边栏空间 */
 .VPSidebar.hidden-on-home ~ .VPMain {
   margin-left: 0 !important;
   margin-right: 0 !important;
@@ -78,7 +81,62 @@ body:not(:has(.VPSidebar.hidden-on-home)) .VPMain {
   margin-left: 0 !important;
 }
 
-/* 笔记卡片悬停效果增强 */
+/* 品牌按钮渐变色 */
+.VPButton.brand {
+  border-color: transparent !important;
+  background: var(--gradient-primary) !important;
+}
+
+.VPButton.brand:hover {
+  opacity: 0.9;
+}
+
+/* 导航栏活跃项 */
+.VPNavBarMenuLink.active {
+  color: var(--vp-c-brand) !important;
+}
+
+/* 侧边栏链接过渡 */
+.VPSidebarItem .link:hover,
+.VPSidebarItem .link.active {
+  transition: all 0.2s ease;
+}
+
+/* 代码块样式 */
+.vp-doc pre {
+  border-radius: 12px !important;
+  margin: 1.5rem 0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.vp-doc code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* 引用块 */
+.vp-doc blockquote {
+  border-left: 4px solid var(--vp-c-brand) !important;
+  background: var(--vp-c-bg-soft) !important;
+  border-radius: 0 8px 8px 0 !important;
+  padding: 0.5rem 1rem !important;
+}
+
+/* 表格 */
+.vp-doc table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.vp-doc th {
+  background: var(--vp-c-bg-mute) !important;
+}
+
+/* 搜索框 */
+.DocSearch-Button {
+  border-radius: 8px !important;
+}
+
+/* 笔记卡片悬停光效 */
 .note-card {
   position: relative;
   overflow: hidden;
@@ -99,53 +157,60 @@ body:not(:has(.VPSidebar.hidden-on-home)) .VPMain {
   left: 100%;
 }
 
-/* 代码块样式优化 */
-.vp-doc pre {
-  border-radius: 12px !important;
-  margin: 1.5rem 0 !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+/* 暗色模式适配 */
+html.dark .VPNav {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
 }
 
-.vp-doc code {
-  font-family: 'JetBrains Mono', monospace;
+html.dark .vp-doc pre {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
-/* 响应式优化 */
+/* 暗色模式下滚动条 */
+html.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: var(--vp-c-bg);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: var(--vp-c-bg-mute);
+  border-radius: 4px;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
+}
+
+/* 全局滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
+}
+
+/* 动画关键帧 */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 响应式 */
 @media (max-width: 768px) {
   .vp-doc {
     padding: 0 1rem !important;
-  }
-}
-
-/* 平滑滚动动画 */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 滚动指示器 */
-.scroll-indicator-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--vp-c-brand);
-  border-radius: 50%;
-  margin: 0.5rem 0;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.7;
   }
 }
