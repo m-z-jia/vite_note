@@ -174,7 +174,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { useParticles } from '../composables/useParticles.js'
 import { useNoteLoader } from '../composables/useNoteLoader.js'
 import { useReadingProgress } from '../composables/useReadingProgress.js'
@@ -254,16 +254,83 @@ function handleResize() {
   }, 200)
 }
 
+// 滚动穿透处理：笔记容器未到视口顶部时，滚轮事件交给页面
+let pendingDelta = 0
+let rafId = null
+
+// wheel deltaY 单位可能是行(deltaMode=1)或页(deltaMode=2)，统一转为像素
+function toPixelDelta(e) {
+  const d = e.deltaY
+  if (e.deltaMode === 1) return d * 40   // 1 行 ≈ 40px
+  if (e.deltaMode === 2) return d * 800  // 1 页 ≈ 800px
+  return d                                // 像素
+}
+
+function isNotesAtTop() {
+  const el = notesMain.value
+  if (!el) return true
+  return el.getBoundingClientRect().top <= 80
+}
+
+function flushPageScroll() {
+  if (!pendingDelta) { rafId = null; return }
+  const delta = pendingDelta
+  pendingDelta = 0
+  rafId = null
+  // scroll-behavior: smooth 会导致 scrollTop 走动画，快速 wheel 事件会互相打架
+  const el = document.documentElement
+  const prev = el.style.scrollBehavior
+  el.style.scrollBehavior = 'auto'
+  el.scrollTop += delta
+  document.body.scrollTop += delta
+  el.style.scrollBehavior = prev
+}
+
+function handleWheel(e) {
+  const wrapper = contentWrapper.value
+  if (!wrapper) return
+
+  const delta = toPixelDelta(e)
+
+  // 笔记容器还没到视口顶部 → 全部交给页面滚动
+  if (!isNotesAtTop()) {
+    e.preventDefault()
+    pendingDelta += delta
+    if (!rafId) rafId = requestAnimationFrame(flushPageScroll)
+    return
+  }
+
+  // 笔记容器已到顶，检查内部滚动边界
+  const atTop = wrapper.scrollTop <= 0
+  const atBottom = wrapper.scrollTop + wrapper.clientHeight >= wrapper.scrollHeight - 1
+  const innerScrollable = wrapper.scrollHeight > wrapper.clientHeight
+
+  if (innerScrollable) {
+    if (delta > 0 && !atBottom) return  // 向下未到底 → 内部滚动
+    if (delta < 0 && !atTop) return     // 向上未到顶 → 内部滚动
+  }
+
+  // 到达内部边界或内容不可滚动 → 交给页面
+  e.preventDefault()
+  pendingDelta += delta
+  if (!rafId) rafId = requestAnimationFrame(flushPageScroll)
+}
+
 onMounted(() => {
   nextTick(() => {
     initNotesParticles()
   })
   window.addEventListener('resize', handleResize)
+  contentWrapper.value?.addEventListener('wheel', handleWheel, { passive: false })
 
   // 默认加载笔记
   if (categories.value.length > 2 && categories.value[2].notes.length > 1) {
     loadNote(2, 1)
   }
+})
+
+onUnmounted(() => {
+  contentWrapper.value?.removeEventListener('wheel', handleWheel)
 })
 </script>
 

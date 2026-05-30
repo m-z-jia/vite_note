@@ -40,13 +40,17 @@ function handlePageScroll() {
 function handleSidebar() {
   nextTick(() => {
     const sidebar = document.querySelector('.VPSidebar')
-    if (sidebar) {
-      const currentPath = window.location.pathname
-      if (currentPath === '/' || currentPath === '/index.html') {
-        sidebar.classList.add('hidden-on-home')
-      } else {
-        sidebar.classList.remove('hidden-on-home')
-      }
+    if (!sidebar) return
+    // 去掉 base 前缀后判断是否首页，兼容 GitHub Pages 部署
+    const base = import.meta.env.BASE_URL
+    let path = window.location.pathname
+    if (base !== '/' && path.startsWith(base)) {
+      path = path.slice(base.length - 1) // 保留开头的 /
+    }
+    if (path === '/' || path === '/index.html') {
+      sidebar.classList.add('hidden-on-home')
+    } else {
+      sidebar.classList.remove('hidden-on-home')
     }
   })
 }
