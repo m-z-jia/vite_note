@@ -6,6 +6,7 @@ export default {
   description: "记录学习与成长的点点滴滴",
   head: [["link", { rel: "icon", href: "/img/mushroom.png" }]],
   markdown: {
+    lineNumbers: true,
     config: (md) => {
       md.use(mathjax3);
     },
@@ -14,14 +15,15 @@ export default {
     logo: "/img/logo.png",
     nav: [
       { text: "首页", link: "/" },
-      {
-        text: "笔记分类",
-        items: [
-          { text: "机器学习", link: "/notes/guide/机器学习/L1-L2正则化" },
-          { text: "前端相关", link: "/notes/guide/前端相关/组件调用" },
-          { text: "随心记", link: "/notes/guide/随心记/first" },
-        ],
-      },
+      // {
+      //   text: "笔记分类",
+      //   items: [
+      //     { text: "机器学习", link: "/notes/guide/机器学习/L1-L2正则化" },
+      //     { text: "前端相关", link: "/notes/guide/前端相关/组件调用" },
+      //     { text: "作业", link: "/notes/guide/作业/需求1-Java反射机制" },
+      //     { text: "随心记", link: "/notes/guide/随心记/first" },
+      //   ],
+      // },
     ],
     footer: {
       message: "知识的星辉照亮成长之路 — 记录只是开始，思考没有终点。",
@@ -72,6 +74,36 @@ export default {
         ],
       },
       {
+        text: "作业",
+        collapsed: true,
+        items: [
+          {
+            text: "Java反射机制",
+            link: "/notes/guide/作业/需求1-Java反射机制",
+          },
+          {
+            text: "文本文件复制",
+            link: "/notes/guide/作业/需求2-文本文件复制",
+          },
+          {
+            text: "计算方法执行时间+匿名内部类",
+            link: "/notes/guide/作业/需求3-计算方法执行时间+匿名内部类",
+          },
+          {
+            text: "形式化方法",
+            link: "/notes/guide/作业/需求4-形式化方法",
+          },
+          {
+            text: "Prime Numbers素数",
+            link: "/notes/guide/作业/需求5-Prime-Numbers素数",
+          },
+          {
+            text: "枚举类型应用场景",
+            link: "/notes/guide/作业/需求6-枚举类型应用场景",
+          },
+        ],
+      },
+      {
         text: "随心记",
         collapsed: true,
         items: [
@@ -82,6 +114,14 @@ export default {
           {
             text: "VuePress 笔记网站搭建指南",
             link: "/notes/guide/随心记/first",
+          },
+          {
+            text: "skills - AI 编程工程化指令集",
+            link: "/notes/guide/随心记/skills",
+          },
+          {
+            text: "codegraph - 代码语义图谱索引工具",
+            link: "/notes/guide/随心记/codegraph",
           },
         ],
       },

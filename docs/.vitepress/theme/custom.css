@@ -102,15 +102,141 @@ body:not(:has(.VPSidebar.hidden-on-home)) .VPMain {
   transition: all 0.2s ease;
 }
 
-/* 代码块样式 */
-.vp-doc pre {
-  border-radius: 12px !important;
+/* ===== 代码块样式（CSDN 风格） ===== */
+
+/* 代码块整体容器 */
+.vp-doc div[class*="language-"] {
+  position: relative;
   margin: 1.5rem 0 !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #3e3e3e;
 }
 
-.vp-doc code {
+/* 顶部语言标签栏 — 使用 VitePress 自带的 .lang 元素 */
+.vp-doc div[class*="language-"] > .lang {
+  display: block;
+  padding: 6px 16px;
+  background: #1e1e1e;
+  color: #858585;
+  font-size: 12px;
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  border-bottom: 1px solid #3e3e3e;
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+  user-select: none;
+}
+
+/* 代码块 pre — 让 Shiki 通过 CSS 变量控制背景色 */
+.vp-doc div[class*="language-"] > pre.shiki {
+  margin: 0 !important;
+  padding: 16px !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow-x: auto;
+}
+
+/* 代码字体和行高 */
+.vp-doc div[class*="language-"] code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.8 !important;
+}
+
+/* 复制按钮 */
+.vp-doc div[class*="language-"] > button.copy {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  z-index: 10;
+  border-radius: 4px !important;
+  background: #3a3a3a !important;
+  color: #999 !important;
+  border: none !important;
+  padding: 4px 10px !important;
+  font-size: 12px !important;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.vp-doc div[class*="language-"]:hover > button.copy {
+  opacity: 1;
+}
+
+.vp-doc div[class*="language-"] > button.copy:hover {
+  background: #505050 !important;
+  color: #fff !important;
+}
+
+.vp-doc div[class*="language-"] > button.copy.copied {
+  background: #2ea043 !important;
+  color: #fff !important;
+  opacity: 1;
+}
+
+/* 行号 */
+.vp-doc div[class*="language-"] .line-numbers-wrapper {
+  padding: 16px 0;
+  background: #1e1e1e;
+  border-right: 1px solid #3e3e3e;
+  color: #555;
+  font-size: 13px;
+  user-select: none;
+}
+
+.vp-doc div[class*="language-"] .line-numbers-wrapper > span {
+  display: block;
+  padding: 0 12px 0 16px;
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* 代码块内滚动条 */
+.vp-doc div[class*="language-"] pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+.vp-doc div[class*="language-"] pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.vp-doc div[class*="language-"] pre::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+
+.vp-doc div[class*="language-"] pre::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* 内联代码 */
+.vp-doc :not(pre) > code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace !important;
+  background: var(--vp-c-bg-soft) !important;
+  color: #c7254e !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+  border: 1px solid var(--vp-c-divider) !important;
+}
+
+html.dark .vp-doc :not(pre) > code {
+  color: #e9696f !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* 暗色模式下代码块边框 */
+html.dark .vp-doc div[class*="language-"] {
+  border-color: #3e3e3e;
+}
+
+/* diff 高亮行 */
+.vp-doc div[class*="language-"] .highlighted {
+  background: rgba(46, 160, 67, 0.2);
+  display: inline-block;
+  width: 100%;
 }
 
 /* 引用块 */
@@ -162,10 +288,6 @@ html.dark .VPNav {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
 }
 
-html.dark .vp-doc pre {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-}
-
 /* 暗色模式下滚动条 */
 html.dark ::-webkit-scrollbar {
   width: 8px;
@@ -213,4 +335,14 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   .vp-doc {
     padding: 0 1rem !important;
   }
+}
+
+.meta-category.dot-green {
+  background: rgba(67, 233, 123, 0.12);
+  color: #2ea85a;
+}
+
+.meta-category.dot-orange {
+  background: rgba(249, 115, 22, 0.12);
+  color: #f97316;
 }
