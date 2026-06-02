@@ -9,6 +9,14 @@
       <span>目录</span>
     </button>
 
+    <header class="notes-heading">
+      <p>Notebook desk</p>
+      <div>
+        <h2>新旧问题，在这里并排摊开。</h2>
+        <span>每一篇都尽量留下当时的疑问、推导和回看的余地，让学习不是一阵风吹过。</span>
+      </div>
+    </header>
+
     <!-- 移动端抽屉 -->
     <Transition name="drawer-slide">
       <div v-if="showDrawer" class="drawer-overlay" @click.self="showDrawer = false">
@@ -347,10 +355,50 @@ onUnmounted(() => {
 /* ===== 笔记区域 ===== */
 .notes-section {
   position: relative;
-  background: var(--vp-c-bg);
-  padding: 2rem;
+  background:
+    linear-gradient(180deg, var(--vp-c-bg) 0%, var(--note-desk-bg) 100%);
+  padding: clamp(1.25rem, 3vw, 3rem);
   min-height: calc(100vh - 4rem);
   overflow: hidden;
+}
+
+.notes-heading {
+  position: relative;
+  z-index: 10;
+  width: min(1500px, 100%);
+  margin: 0 auto 1.4rem;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 2rem;
+  align-items: end;
+  border-bottom: 1px solid var(--note-line);
+  padding-bottom: 1.15rem;
+}
+
+.notes-heading p {
+  margin: 0;
+  color: var(--note-accent);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.notes-heading h2 {
+  margin: 0;
+  color: var(--vp-c-text-1);
+  font-size: clamp(1.45rem, 3vw, 2.45rem);
+  line-height: 1.16;
+  letter-spacing: 0;
+}
+
+.notes-heading span {
+  display: block;
+  max-width: 760px;
+  margin-top: 0.7rem;
+  color: var(--vp-c-text-2);
+  font-size: 0.98rem;
+  line-height: 1.75;
 }
 
 /* 移动端目录切换按钮 */
@@ -360,8 +408,8 @@ onUnmounted(() => {
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 10px;
-  background: var(--vp-c-bg-soft);
+  border-radius: 7px;
+  background: var(--note-panel);
   color: var(--vp-c-text-1);
   font-size: 0.95rem;
   cursor: pointer;
@@ -448,27 +496,29 @@ onUnmounted(() => {
 .notes-container {
   position: relative;
   z-index: 10;
-  max-width: 1600px;
+  max-width: 1500px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 300px 1fr 240px;
-  gap: 2rem;
+  grid-template-columns: minmax(230px, 0.26fr) minmax(520px, 1fr) minmax(190px, 0.22fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
   align-items: start;
 }
 
 /* 左侧目录 */
 .notes-sidebar {
-  background: var(--vp-c-bg-soft);
-  border-radius: 12px;
-  padding: 1rem;
+  background: var(--note-panel);
+  border: 1px solid var(--note-line);
+  border-radius: 8px;
+  padding: 0.8rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   position: sticky;
   top: 76px;
   overflow-y: auto;
-  height: calc(100vh - 116px);
+  height: calc(100vh - 132px);
   flex-shrink: 0;
+  box-shadow: var(--note-shadow);
 }
 
 /* 分类项 */
@@ -482,18 +532,18 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  padding: 0.68rem 0.75rem;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   color: var(--vp-c-text-1);
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   flex-shrink: 0;
 }
 
 .category-header:hover {
-  background: var(--vp-c-bg-mute);
+  background: var(--note-hover);
 }
 
 .category-icon {
@@ -510,16 +560,16 @@ onUnmounted(() => {
 
 /* 分类颜色点 */
 .category-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  width: 3px;
+  height: 18px;
+  border-radius: 999px;
   flex-shrink: 0;
 }
 
-.dot-purple { background: var(--gradient-primary); }
-.dot-blue { background: var(--gradient-accent); }
-.dot-orange { background: linear-gradient(135deg, #f97316 0%, #fb923c 100%); }
-.dot-green { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.dot-purple { background: #6376b6; }
+.dot-blue { background: #2f90b5; }
+.dot-orange { background: #c48445; }
+.dot-green { background: #5c8f72; }
 
 .category-count {
   margin-left: auto;
@@ -542,8 +592,8 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.55rem 0.85rem;
-  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.2s ease;
   color: var(--vp-c-text-2);
@@ -553,13 +603,14 @@ onUnmounted(() => {
 }
 
 .note-item:hover {
-  background: var(--vp-c-bg-mute);
+  background: var(--note-hover);
   color: var(--vp-c-text-1);
 }
 
 .note-item.active {
-  background: var(--vp-c-brand);
-  color: #fff;
+  background: var(--note-active);
+  color: var(--vp-c-text-1);
+  box-shadow: inset 3px 0 0 var(--note-accent);
 }
 
 .note-item-dot {
@@ -571,29 +622,32 @@ onUnmounted(() => {
 
 /* 右侧内容区 */
 .notes-main {
-  background: var(--vp-c-bg-soft);
-  border-radius: 12px;
+  background: var(--note-paper);
+  border: 1px solid var(--note-line);
+  border-radius: 8px;
   position: sticky;
   top: 76px;
-  height: calc(100vh - 116px);
+  height: calc(100vh - 132px);
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: var(--note-shadow);
 }
 
 /* 文档目录 */
 .docs-toc {
-  background: var(--vp-c-bg-soft);
-  border-radius: 12px;
-  padding: 1rem;
+  background: transparent;
+  border-left: 1px solid var(--note-line);
+  border-radius: 0;
+  padding: 0.35rem 0 0.35rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   position: sticky;
   top: 76px;
   overflow-y: auto;
-  height: calc(100vh - 116px);
+  height: calc(100vh - 132px);
   flex-shrink: 0;
 }
 
@@ -602,7 +656,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 0.5rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--note-line);
   font-weight: 600;
   color: var(--vp-c-text-1);
   font-size: 0.95rem;
@@ -626,26 +680,26 @@ onUnmounted(() => {
 }
 
 .toc-item:hover {
-  color: var(--vp-c-brand);
-  background: var(--vp-c-bg-mute);
+  color: var(--note-accent);
+  background: var(--note-hover);
 }
 
 .toc-item.active {
-  color: var(--vp-c-brand);
+  color: var(--note-accent);
   font-weight: 500;
-  background: var(--vp-c-bg-mute);
+  background: var(--note-hover);
 }
 
 /* 阅读进度条 */
 .reading-progress-track {
   height: 3px;
-  background: var(--vp-c-divider);
+  background: var(--note-line);
   flex-shrink: 0;
 }
 
 .reading-progress-bar {
   height: 100%;
-  background: var(--gradient-primary);
+  background: linear-gradient(90deg, var(--note-accent), #8c6f42);
   transition: width 0.15s linear;
   border-radius: 0 2px 2px 0;
 }
@@ -654,7 +708,7 @@ onUnmounted(() => {
 .note-content-wrapper {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem;
+  padding: clamp(1.25rem, 3vw, 2.35rem);
 }
 
 .note-empty {
@@ -693,7 +747,7 @@ onUnmounted(() => {
   color: var(--vp-c-text-1);
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid var(--vp-c-brand);
+  border-bottom: 1px solid var(--note-line);
 }
 
 .note-content :deep(h2) {
@@ -735,7 +789,7 @@ onUnmounted(() => {
 }
 
 .note-content :deep(blockquote) {
-  border-left: 4px solid var(--vp-c-brand);
+  border-left: 3px solid var(--note-accent);
   padding: 0.5rem 1rem;
   margin: 1rem 0;
   background: var(--vp-c-bg-mute);
@@ -937,8 +991,8 @@ onUnmounted(() => {
   gap: 0.5rem;
   padding: 0.85rem 1rem;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 10px;
-  background: var(--vp-c-bg);
+  border-radius: 7px;
+  background: var(--note-panel);
   color: var(--vp-c-text-1);
   cursor: pointer;
   font-size: 0.9rem;
@@ -947,9 +1001,9 @@ onUnmounted(() => {
 }
 
 .nav-btn:hover:not(:disabled) {
-  border-color: var(--vp-c-brand);
-  color: var(--vp-c-brand);
-  background: var(--vp-c-bg-soft);
+  border-color: var(--note-accent);
+  color: var(--vp-c-text-1);
+  background: var(--note-hover);
 }
 
 .nav-btn:disabled {
@@ -970,6 +1024,11 @@ onUnmounted(() => {
 @media (max-width: 968px) {
   .notes-sidebar { display: none; }
   .mobile-cat-toggle { display: flex; }
+
+  .notes-heading {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
 
   .notes-container {
     grid-template-columns: 1fr;
@@ -992,6 +1051,10 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .notes-section { padding: 1rem; }
+
+  .notes-heading {
+    margin-bottom: 1rem;
+  }
 
   .note-nav {
     grid-template-columns: 1fr;
