@@ -1,8 +1,30 @@
 :root {
   --vp-home-hero-image-filter: blur(0);
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --vp-c-brand-1: #8a6a3f;
+  --vp-c-brand-2: #a77f49;
+  --vp-c-brand-3: #d6a85f;
+  --gradient-primary: linear-gradient(135deg, #d6a85f 0%, #5c8f72 100%);
+  --gradient-secondary: linear-gradient(135deg, #d6a85f 0%, #c48445 100%);
+  --gradient-accent: linear-gradient(135deg, #2f90b5 0%, #5c8f72 100%);
+  --note-desk-bg: #f4f0e8;
+  --note-panel: rgba(255, 252, 246, 0.82);
+  --note-paper: #fffdf8;
+  --note-line: rgba(55, 49, 40, 0.12);
+  --note-hover: rgba(92, 143, 114, 0.1);
+  --note-active: rgba(214, 168, 95, 0.16);
+  --note-accent: #8a6a3f;
+  --note-shadow: 0 18px 46px rgba(46, 39, 28, 0.08);
+}
+
+html.dark {
+  --note-desk-bg: #101413;
+  --note-panel: rgba(21, 26, 24, 0.84);
+  --note-paper: #171a18;
+  --note-line: rgba(239, 230, 214, 0.12);
+  --note-hover: rgba(214, 168, 95, 0.1);
+  --note-active: rgba(214, 168, 95, 0.14);
+  --note-accent: #d6a85f;
+  --note-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
 }
 
 /* 全局 */
@@ -21,9 +43,9 @@ html {
   left: 0 !important;
   right: 0 !important;
   z-index: 100 !important;
-  background: var(--vp-c-bg) !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
-  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--vp-c-bg) 88%, transparent) !important;
+  box-shadow: 0 1px 0 var(--note-line) !important;
+  backdrop-filter: blur(16px);
   transition: all 0.3s ease !important;
 }
 
