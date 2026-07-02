@@ -81,7 +81,8 @@ const categories = ref([
       { title: '计算方法执行时间+匿名内部类', path: '../../../notes/guide/作业/需求3-计算方法执行时间+匿名内部类.md' },
       { title: '形式化方法', path: '../../../notes/guide/作业/需求4-形式化方法.md' },
       { title: 'Prime Numbers素数', path: '../../../notes/guide/作业/需求5-Prime-Numbers素数.md' },
-      { title: '枚举类型应用场景', path: '../../../notes/guide/作业/需求6-枚举类型应用场景.md' }
+      { title: '枚举类型应用场景', path: '../../../notes/guide/作业/需求6-枚举类型应用场景.md' },
+      { title: '实验4-App运行说明', path: '../../../notes/guide/作业/需求7-实验4-App运行说明.md' }
     ]
   },
   {

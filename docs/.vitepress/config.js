@@ -101,6 +101,10 @@ export default {
             text: "枚举类型应用场景",
             link: "/notes/guide/作业/需求6-枚举类型应用场景",
           },
+          {
+            text: "实验4 App运行说明",
+            link: "/notes/guide/作业/需求7-实验4-App运行说明",
+          },
         ],
       },
       {
