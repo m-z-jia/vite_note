@@ -52,6 +52,13 @@ const md = new MarkdownIt({
   }
 })
 
+function withBaseForRootAbsoluteUrls(html) {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+  if (!base) return html
+
+  return html.replace(/(src|href)="\/(?!\/)/g, `$1="${base}/`)
+}
+
 const markdownModules = import.meta.glob('../../../notes/**/*.md', { query: '?raw', import: 'default' })
 
 const categories = ref([
@@ -178,7 +185,7 @@ export function useNoteLoader(contentWrapperRef) {
       const markdownLoader = markdownModules[note.path]
       if (markdownLoader) {
         const markdown = await markdownLoader()
-        currentNoteContent.value = md.render(markdown)
+        currentNoteContent.value = withBaseForRootAbsoluteUrls(md.render(markdown))
       } else {
         currentNoteContent.value = '<p>笔记文件不存在。</p>'
       }
